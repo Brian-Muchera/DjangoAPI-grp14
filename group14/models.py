@@ -7,7 +7,7 @@ from uuidfield import UUIDField
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='')
     profile_picture = models.ImageField(upload_to='', default='')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
@@ -28,6 +28,7 @@ class Profile(models.Model):
 
 
 class Appointments(models.Model):
+    uuid = UUIDField(auto=True)
     appointments_id=models.UUIDField(auto=True)
     patients_id=models.CharField(max_length=100)
     doctor_id=models.CharField(max_length=100)

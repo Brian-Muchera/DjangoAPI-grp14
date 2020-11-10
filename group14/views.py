@@ -2,6 +2,10 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Profile
 from .serializers import ProfileSerializer
+from .models import Appointments
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -14,10 +18,6 @@ def home(request):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-from .models import Appointments
-from django.shortcuts import get_object_or_404
-from django.contrib import messages
-
 # Create your views here.
 
 def update_bookings(request, id=None):
