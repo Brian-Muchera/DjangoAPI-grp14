@@ -11,8 +11,7 @@ router.register('profile', views.ProfileViewSet)
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('viewset/', include(router.urls)),
-    path('<username>/profile', views.user_profile, name='userprofile'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    
+    url(r'^viewset/',include(router.urls)),
+    url(r'^$',views.home,name='home'),
+    url(r'^profile/',views.Profile),
+]
