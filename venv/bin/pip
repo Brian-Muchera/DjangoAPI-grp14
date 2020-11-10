@@ -1,4 +1,4 @@
-#!/home/cindy/Desktop/DjangoAPI-grp14/venv/bin/python3
+#!/home/cindy/Desktop/DjangoAPI-grp14/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
