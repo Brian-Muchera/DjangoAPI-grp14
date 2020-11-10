@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'group14',
     'cloudinary',
     'rest_framework',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

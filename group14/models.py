@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
-
+from uuidfield import UUIDField
 
 # Create your models here.
 class Profile(models.Model):
@@ -26,11 +26,8 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-from uuidfield import UUIDField
 
-# Create your models here.
-
-Class Appointments(models.MOdel):
+class Appointments(models.Model):
     appointments_id=models.UUIDField(auto=True)
     patients_id=models.CharField(max_length=100)
     doctor_id=models.CharField(max_length=100)
