@@ -26,6 +26,6 @@ def update_bookings(request, id=None):
 
 # @login_required(login_url='/login/')
 def delete_bookings(request, id=None):
-    instance=get_object_or_404(Computer, id=id)
+    instance=get_object_or_404(Appointments, id=id)
     instance.delete()
     return redirect ('index')
