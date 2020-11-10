@@ -3,6 +3,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
 from rest_framework import routers
+from .views import ProfileViewSet
 
 router = routers.DefaultRouter()
 router.register('profile', views.ProfileViewSet)
