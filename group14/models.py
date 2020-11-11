@@ -10,7 +10,7 @@ Class Appointments(models.MOdel):
     date=models.CharField(max_length=50)
     # time_allocated=models.CharField(max_length=50)
     time_alloted=models.CharField(max_length=50)
-    # number_alloted=models.CharField(max_length=50)
+    
     is_completed=models.BooleanField(default=False)
     is_confirmed=models.BooleanField(default=False)
     is_rejected=models.BooleanField(default=False)

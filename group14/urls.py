@@ -11,5 +11,5 @@ urlpatterns = [
 
     url(r'^patients/(?P<id>\d+)/$', views.update_bookings, name='update_bookings'),
     url(r'^patients/(?P<id>\d+)/delete$', views.delete_bookings, name='delete_bookings'),
-
+    url(r'^api/appointments/$', views.AppointmentsList.as_view())
 ]
