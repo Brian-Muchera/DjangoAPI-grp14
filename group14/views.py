@@ -9,6 +9,15 @@ from group14.serializers import DoctorSerializer
 @csrf_exempt
 def doctorApi(request,id=0):
     if request.method=='GET':
-        doctor = Doctor.objects.all()
-        doctor_serializer = DoctorSerializer(doctor, many=True)
+        doctors = Doctor.objects.all()
+        doctors_serializer = DoctorSerializer(doctors, many=True)
         return JsonResponse(doctor_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        doctor_data = JSONParser().parse(request)
+        doctor_serializer = DoctorSerializer(data=doctor_data)
+        if doctor_serializer.is_valid():
+            doctor_serializer.save()
+            return JsonResponse("Doctor Added Successfully", safe=False)
+        return JsonResponse("Failed to add doctor", safe=False)
+
