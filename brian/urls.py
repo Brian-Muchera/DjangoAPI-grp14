@@ -15,7 +15,7 @@ router.register('profile', views.ProfileViewSet)
 
 urlpatterns = [
     url(r'^viewset/',include(router.urls)),
-    url(r'^$',views.home,name='home'),
+    #url(r'^$',views.home,name='home'),
     url('api/', include(router.urls)),
     url(r'^profile/(?P<id>\d+)/$', views.Profile, name='prof'),
 
