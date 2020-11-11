@@ -1,8 +1,9 @@
-from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser,PermissionsMixin,BaseUserManager
 import datetime
+
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin, User, UserManager)
+from django.db import models
 
 
 # Create your models here.
@@ -19,12 +20,11 @@ class DoctorManager(BaseUserManager):
         return doctor
  
  
-class patientManager(BaseUserManager):
- 
-    def create_patient(self, first_name, last_name, email, date_of_birth,age=age,phone=phone,adress=adress,city=city, password=None):
+class PatientManager(BaseUserManager):
+    def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,adress,city, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
-        Patient = Patient(first_name=first_name, last_name=last_name, 
+        patient = Patient(first_name=first_name, last_name=last_name, 
                             email=self.normalize_email(email),
                             date_of_birth=date_of_birth,age=age,adress=adress,phone=phone,city=city)
         patient.set_password(password)
@@ -46,14 +46,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     objects = UserManager()
  
-    @property
-    def token(self):
-        dt = datetime.now() + timedelta(days=days)
-        token = jwt.encode({
-            'id': user_id,
-            'exp': int(time.mktime(dt.timetuple()))
-        }, settings.SECRET_KEY, algorithm='HS256')
-        return token.decode('utf-8')
+    # @property
+    # def token(self):
+    #     dt = datetime.now() + timedelta(days=days)
+    #     token = jwt.encode({
+    #         'id': user_id,
+    #         'exp': int(time.mktime(dt.timetuple()))
+    #     }, settings.SECRET_KEY, algorithm='HS256')
+    #     return token.decode('utf-8')
  
     def get_full_name(self):
         return (self.first_name+' '+self.last_name)
