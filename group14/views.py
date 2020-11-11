@@ -30,5 +30,9 @@ def doctorApi(request,id=0):
             return JsonResponse("Doctor Updated Successfully", safe=False)
         return JsonResponse("Failed to update doctor", safe=False)
 
+    elif request.method=='DELETE':
+        doctor=Doctor.objects.get(DoctorId=id)
+        doctor.delete()
+        return JsonResponse("Deleted Successfully", safe=True)
 
 
