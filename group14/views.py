@@ -12,7 +12,7 @@ def doctorApi(request,id=0):
         doctors = Doctor.objects.all()
         doctors_serializer = DoctorSerializer(doctors, many=True)
         return JsonResponse(doctor_serializer.data, safe=False)
-        
+
     elif request.method=='POST':
         doctor_data = JSONParser().parse(request)
         doctor_serializer = DoctorSerializer(data=doctor_data)
@@ -20,4 +20,15 @@ def doctorApi(request,id=0):
             doctor_serializer.save()
             return JsonResponse("Doctor Added Successfully", safe=False)
         return JsonResponse("Failed to add doctor", safe=False)
+    
+    elif request.method=='PUT':
+        doctor_data = JSONParser().parse(request)
+        doctor=Doctor.objects.get(DoctorId=doctor_data['DoctorId'])
+        doctor_serializer=DoctorSerializer(doctor,data=doctor_data)
+        if doctor_serializer.is_valid():
+            doctor_serializer.save()
+            return JsonResponse("Doctor Updated Successfully", safe=False)
+        return JsonResponse("Failed to update doctor", safe=False)
+
+
 
