@@ -10,9 +10,9 @@ from django.contrib import messages
 # Create your views here.
 
 
-def home(request):
-  title ="Welcome"
-  return render(request,'home.html',{"title":title})
+#def home(request):
+#  title ="Welcome"
+ # return render(request,'home.html',{"title":title})
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
