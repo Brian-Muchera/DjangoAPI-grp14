@@ -19,14 +19,19 @@ from django.urls import path
 from django.contrib.auth import views
 from django.urls import path, include
 from django.conf.urls import url
-from users import views as user_views
-from django.contrib.auth import views as auth_views
+
 from rest_framework.authtoken.views import obtain_auth_token
-from group14views import views
-from group14views.views import AppointmentsList
+from appointments import views
+
+from rest_framework import routers
+from appointments.views import AppointmentsViewSet
+
+router = routers.DefaultRouter()
+router.register(r'appointments', views.AppointmentsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('group14views.urls'))
-    path('api-auth/', include('rest_framework.urls'))
+    path('',include('appointments.urls')),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls',namespace='rest_framework'))
 ]
