@@ -12,7 +12,7 @@ from .serializer import AppointmentsSerializer
 
 from rest_framework import mixins
 from rest_framework import generics
-# from django.shortcuts import get_object
+
 
 # Create your views here.
 
@@ -20,12 +20,6 @@ class AppointmentsList (APIView):
 
     queryset = Appointments.objects.all()
     serializer_class = AppointmentsSerializer
-
-    # def get(self, request, *args, **kwargs):
-    #     return self.list(request, *args, **kwargs)
-
-    # def post(self, request, *args, **kwargs):
-    #     return self.create(request, *args, **kwargs)
 
 
     """
@@ -49,3 +43,10 @@ class AppointmentsList (APIView):
         appointments = Appointments.objects.filter(pk = pk)
         appointments.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, format=None):
+        serializer = AppointmentsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
