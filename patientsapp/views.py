@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from .models import Patient
 from .serializers import PatientSerializer
+from rest_framework.response import Response
+from rest_framework import status 
 
 # Create your views here.
 class PatientView(viewsets.ModelViewSet):
@@ -19,9 +21,12 @@ class PatientView(viewsets.ModelViewSet):
         return self.create(request)
     
     def put(self,request,pk=None):
-        return self.update(request,pk)
+        return self.update(request,pk)    
     
-    def delete(self,request,pk):
-        return self.destroy(request,pk)
+    def delete(self, request, pk=None):
+        pk = self.kwargs.get('pk')        
+        patients_delete = Patient.objects.filter(pk = pk)
+        patients_delete.delete()
 
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
