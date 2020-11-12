@@ -17,8 +17,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
         profile_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, *args, **kwargs):
-        pk = self.kwargs.get('pk')
-        profile_put = Profile.objects.filter(pk = pk)
-        profile_put.put()
-        return self.update(request, *args, **kwargs)
+    def put(self, request, format=None):
+        serializer = ProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
