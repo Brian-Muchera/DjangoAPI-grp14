@@ -23,15 +23,19 @@ from django.conf.urls import url
 from rest_framework.authtoken.views import obtain_auth_token
 from appointments import views
 
-from rest_framework import routers
-from appointments.views import AppointmentsViewSet
+# from rest_framework import routers
+from appointments.views import AppointmentsList
 
-router = routers.DefaultRouter()
-router.register(r'appointments', views.AppointmentsViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'appointments', views.AppointmentsList)
+# router.register(r'appointments', views.AppointmentsDetail)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('appointments.urls')),
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
+
+    # url(r'^api-token-auth/', obtain_auth_token),
+
     path('api-auth/', include('rest_framework.urls',namespace='rest_framework'))
 ]
