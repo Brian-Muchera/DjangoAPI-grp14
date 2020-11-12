@@ -20,8 +20,17 @@ class PatientView(viewsets.ModelViewSet):
     def post(self,request):
         return self.create(request)
     
-    def put(self,request,pk=None):
-        return self.update(request,pk)    
+    # def put(self,request,pk=None):
+    #     return self.update(request,pk)
+       
+    def put(self, request, format=None):
+        serializer = PatientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
     
     def delete(self, request, pk=None):
         pk = self.kwargs.get('pk')        
