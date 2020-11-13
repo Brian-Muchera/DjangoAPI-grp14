@@ -1,3 +1,4 @@
+
 import datetime
 
 from django.contrib.auth import get_user_model
@@ -46,14 +47,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     objects = UserManager()
  
-    # @property
-    # def token(self):
-    #     dt = datetime.now() + timedelta(days=days)
-    #     token = jwt.encode({
-    #         'id': user_id,
-    #         'exp': int(time.mktime(dt.timetuple()))
-    #     }, settings.SECRET_KEY, algorithm='HS256')
-    #     return token.decode('utf-8')
  
     def get_full_name(self):
         return (self.first_name+' '+self.last_name)
@@ -98,5 +91,4 @@ class UserManager(BaseUserManager):
  
     def get_by_natural_key(self, email):
         return self.get(email=email)
- 
- 
+

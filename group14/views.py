@@ -1,4 +1,3 @@
-# import jwt
 from django.conf import settings
 from django.shortcuts import render
 from rest_framework import authentication, exceptions, status
@@ -30,4 +29,3 @@ class DoctorRegistration(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
