@@ -1,7 +1,11 @@
-from django.conf.urls import url
-from group14 import views
+from django.urls import path
+from django.conf.urls import include, url
+from rest_framework import routers
+from . import views
 
-urlpatterns=[ 
-    url(r'^doctor/$',views.doctorApi),
-    url(r'^doctor/([0-9]+)$',views.doctorApi),
+router = routers.DefaultRouter()
+router.register(r'doctor', views.DoctorView, basename='Doctor')
+
+urlpatterns=[    
+    path('', include(router.urls)),
 ]
