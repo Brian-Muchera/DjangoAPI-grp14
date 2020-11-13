@@ -14,7 +14,7 @@ urlpatterns = [
    
     # path('appointments/<int:pk>/', views.AppointmentsDetail.as_view()),
     path('appointments/', views.AppointmentsList.as_view()),
-
+    url('^api/appointments/$', views.AppointmentList.as_view()),
     url(r'^appointments/(?P<pk>[0-9]+)/',AppointmentsList.as_view())
     # url(r'^api/appointments/$', views.AppointmentsViewSet),
 
