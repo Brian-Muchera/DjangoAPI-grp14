@@ -19,7 +19,20 @@ from django.urls import path, include
 #from django.conf.urls.static import static
 
 
+from django.contrib.auth import views
+from django.urls import path, include
+from django.conf.urls import url
+
+from rest_framework.authtoken.views import obtain_auth_token
+from appointments import views
+
+# from rest_framework import routers
+from appointments.views import AppointmentsList
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('',include('appointments.urls'))
+
     path('',include('brian.urls'))
 ]

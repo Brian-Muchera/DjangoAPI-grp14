@@ -37,17 +37,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'group14',
-    'brian',
+
+    'appointments.apps.AppointmentsConfig',
+    'group14.apps.Group14Config',
+    'brian.apps.BrianConfig',
     'cloudinary',
-    'rest_framework',
     'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -94,12 +98,17 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
 }
  
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
