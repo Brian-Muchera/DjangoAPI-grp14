@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-# from django.views.decorators.csrf import csrf_exempt
-# from rest_framework.parsers import JSONParser
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions, status
@@ -8,11 +7,12 @@ from django.contrib.auth.models import User
 from doctor.models import Doctor
 from doctor.serializers import DoctorSerializer
 
+
 class DoctorView(APIView):
     @classmethod
     def get_extra_actions(cls):
         return []
-        
+
     def get(self, request, *args, **kwargs):
         doctors = get_object_or_404(Doctor, pk=kwargs['doctor_id'])
         serializer = DoctorSerializer(doctors)
@@ -31,26 +31,5 @@ class DoctorView(APIView):
         doctor_delete = Doctor.objects.filter(pk = pk)
         doctor_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-#         doctor_data = JSONParser().parse(request)
-#         doctor_serializer = DoctorSerializer(data=doctor_data)
-#         if doctor_serializer.is_valid():
-#             doctor_serializer.save()
-#             return JsonResponse("Doctor Added Successfully", safe=False)
-#         return JsonResponse("Failed to add doctor", safe=False)
-    
-#     elif request.method=='PUT':
-#         doctor_data = JSONParser().parse(request)
-#         doctor=Doctor.objects.get(DoctorId=doctor_data['DoctorId'])
-#         doctor_serializer=DoctorSerializer(doctor,data=doctor_data)
-#         if doctor_serializer.is_valid():
-#             doctor_serializer.save()
-#             return JsonResponse("Doctor Updated Successfully", safe=False)
-#         return JsonResponse("Failed to update doctor", safe=False)
-
-#     elif request.method=='DELETE':
-#         doctor=Doctor.objects.get(DoctorId=id)
-#         doctor.delete()
-#         return JsonResponse("Deleted Successfully", safe=True)
 
 
