@@ -19,10 +19,7 @@ class PatientView(viewsets.ModelViewSet):
   
     def post(self,request):
         return self.create(request)
-    
-    # def put(self,request,pk=None):
-    #     return self.update(request,pk)
-       
+           
     def put(self, request, format=None):
         serializer = PatientSerializer(data=request.data)
         if serializer.is_valid():
@@ -39,3 +36,4 @@ class PatientView(viewsets.ModelViewSet):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+   
