@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Patient,Doctor,User
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.contrib.auth import authenticate
 
 # class UserLoginSerializer(serializers.Serializer):
 #     email = serializers.CharField(max_length=255)
@@ -88,3 +89,44 @@ class DoctorRegistrationSerializer(serializers.ModelSerializer):
  
     def create(self, validated_data):
         return Doctor.objects.create_doctor(**validated_data)
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=255)
+    password = serializers.CharField(max_length=128, write_only=True)
+    token = serializers.CharField(max_length=255, read_only=True)
+ 
+    def validate(self, data):
+        email = data.get('email', None)
+        password = data.get('password', None)
+ 
+        
+        user = authenticate(username=email, password=password)
+ 
+        
+        if user is None:
+            raise serializers.ValidationError(
+                'A user with this email and password is not found.'
+            )
+        try:
+            userObj = Student.objects.get(email=user.email)
+        except Student.DoesNotExist:
+            userObj = None 
+ 
+        try:
+            if userObj is None:
+                userObj = Employee.objects.get(email=user.email)
+        except Employee.DoesNotExist:
+            raise serializers.ValidationError(
+                'User with given email and password does not exists'
+            )        
+ 
+        if not user.is_active:
+            raise serializers.ValidationError(
+                'This user has been deactivated.'
+            )
+ 
+       
+        return {
+            'email': user.email,
+            'token': user.token
+        }
