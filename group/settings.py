@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import os
+#import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+#from decouple import config,Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'appointments.apps.AppointmentsConfig',
+    'group14.apps.Group14Config',
+    'brian.apps.BrianConfig',
+    'cloudinary',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -86,33 +98,16 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
+
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
     
-
-    ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
 }
-# REST_FRAMEWORK = {
-#     'DEFAULT_PARSER_CLASSES': [
-#         'rest_framework.parsers.JSONParser',
-#     ]
-# }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#     )
-# }
-
-# REST_FRAMEWORK = {
-
-#     'DEFAULT_PAGINATION_CLASS': [
-#         'rest_framework.pagination.PageNumberPagination',
-#         'PAGE_SIZE': 10
-#     ]
-# }
+ 
 
 
 # Password validation
@@ -139,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -152,3 +147,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+#cloudinary.config(cloud_name=config('cloud_name'),api_key=config('api_key'),api_secret=config('api_secret'))
