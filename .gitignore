@@ -1,4 +1,5 @@
 virtual/
 *.pyc
 .env
-venv/
+sample.env
+virtual/

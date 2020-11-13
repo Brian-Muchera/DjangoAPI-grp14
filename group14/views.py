@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 
 from .models import Doctor, Patient,User
 from .serializers import (DoctorRegistrationSerializer,
-                          PatientRegistrationSerializer,UserLoginSerializer)
+                          PatientRegistrationSerializer)
 from rest_framework import viewsets
 
 class PatientRegistration(APIView):
@@ -30,13 +30,4 @@ class DoctorRegistration(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
- 
-class UserLogin(APIView):
-    permission_classes = (AllowAny,)
-    serializer_class = UserLoginSerializer
- 
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 

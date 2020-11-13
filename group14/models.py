@@ -21,12 +21,12 @@ class DoctorManager(BaseUserManager):
  
  
 class PatientManager(BaseUserManager):
-    def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,adress,city, password=None):
+    def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,address,city, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
         patient = Patient(first_name=first_name, last_name=last_name, 
                             email=self.normalize_email(email),
-                            date_of_birth=date_of_birth,age=age,adress=adress,phone=phone,city=city)
+                            date_of_birth=date_of_birth,age=age,address=address,phone=phone,city=city)
         patient.set_password(password)
         patient.save()
         return patient
