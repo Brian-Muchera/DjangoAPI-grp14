@@ -23,7 +23,7 @@ from appointments.views import AppointmentsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('appointments.urls'))
-    path('',include('brian.urls'))
+    path('',include('appointments.urls')),
+    path('',include('brian.urls')),
     path('api/',include('group14.urls')),
 ]

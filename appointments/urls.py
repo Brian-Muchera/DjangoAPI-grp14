@@ -8,16 +8,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-
-    # path('appointments/', views.appointments_list),
-    # path('appointments/<int:pk>/', views.appointments_detail),
-   
-    # path('appointments/<int:pk>/', views.AppointmentsDetail.as_view()),
-    path('appointments/', views.AppointmentsList.as_view()),
-    url('^api/appointments/$', views.AppointmentList.as_view()),
+    path('appointments/', views.AppointmentsList.as_view(),name='appointments'),
+    url('^api/appointments/$', views.AppointmentList.as_view(),name='appointments'),
     url(r'^appointments/(?P<pk>[0-9]+)/',AppointmentsList.as_view())
-    # url(r'^api/appointments/$', views.AppointmentsViewSet),
-
-
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
