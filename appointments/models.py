@@ -1,14 +1,12 @@
 from django.db import models
 # from uuidfield import UUIDField
 from django.urls import reverse
-
+from group14.models import Doctor,Patient
 # Create your models here.
 
 class Appointments(models.Model):
-
-    appointments_id=models.IntegerField()
-    patients_id=models.CharField(max_length=100)
-    doctor_id=models.CharField(max_length=100)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, max_length=100)
+    doctor = models.ForeignKey( Doctor, on_delete=models.CASCADE)
     date=models.CharField(max_length=50)
     time_alloted=models.CharField(max_length=50)
     is_completed=models.BooleanField(default=False)
@@ -21,5 +19,3 @@ class Appointments(models.Model):
     class Meta:
         ordering = ['created_at']
         get_latest_by='created_at'
-
-        # appointments_id, created_at, date, doctor_id, id, is_completed, is_confirmed, is_disabled, is_rejected, patients_id, time_alloted, updated_at

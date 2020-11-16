@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
     def __str__(self):
         return self.email
 class Doctor(User, PermissionsMixin, models.Model):
-    name = models.CharField(unique=True,max_length=50 )
+    name = models.CharField(unique=True,max_length=50, default='SOME STRING')
     qualification = models.CharField(db_index=True, max_length=255)
     speciality=models.CharField(db_index=True, max_length=255)
     profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -87,7 +87,7 @@ class Doctor(User, PermissionsMixin, models.Model):
 
 
 class Patient(User, PermissionsMixin, models.Model):
-    name = models.CharField(unique=True,max_length=50 )
+    name = models.CharField(unique=True,max_length=50, default='SOME STRING')
     date_of_birth=models.DateField(db_index=True)
     age=models.CharField(db_index=True, max_length=10)
     phone=models.CharField(db_index=True, max_length=10)
