@@ -2,7 +2,7 @@ from django.conf import settings
 import datetime
 from django.contrib.auth.models import User
 from group14.models import User
-from brian.models import Profile
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin, User, UserManager,Permission)
@@ -49,7 +49,7 @@ class CustomUserManager(BaseUserManager):
            user.is_staff = True
            user.is_superuser = True
            user.save(using=self._db)
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(db_index=True, unique=True)
@@ -69,20 +69,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         return (self.first_name, self.last_name)
     def __str__(self):
         return self.email
-class Doctor(User, PermissionsMixin):
+class Doctor(User, PermissionsMixin, models.Model):
+    name = models.CharField(unique=True,max_length=50 )
     qualification = models.CharField(db_index=True, max_length=255)
     speciality=models.CharField(db_index=True, max_length=255)
+    profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
+    bio = models.TextField(max_length=500, default="My Bio", blank=True)
+    address=models.TextField(db_index=True, max_length=100)
+    contact = models.EmailField(max_length=100, blank=True)
+
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name',]
     objects = DoctorManager()
     def __str__(self):
         return self.first_name
-class Patient(User, PermissionsMixin):
+
+
+class Patient(User, PermissionsMixin, models.Model):
+    name = models.CharField(unique=True,max_length=50 )
     date_of_birth=models.DateField(db_index=True)
     age=models.CharField(db_index=True, max_length=10)
     phone=models.CharField(db_index=True, max_length=10)
+    profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
+    bio = models.TextField(max_length=500, default="My Bio", blank=True)
+    contact = models.EmailField(max_length=100, blank=True)
     address=models.TextField(db_index=True, max_length=100)
-    city=models.CharField(db_index=True, max_length=20)
+
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name',]
     objects = PatientManager()

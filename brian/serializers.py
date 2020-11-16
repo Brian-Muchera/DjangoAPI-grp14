@@ -1,11 +1,22 @@
 from rest_framework import serializers
-from .models import Profile
+from group14.models import Doctor,Patient,User
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-class ProfileSerializer(serializers.ModelSerializer):
+User = get_user_model()
+
+
+class DoctorProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
-        fields = ['name', 'profile_picture', 'bio', 'location', 'contact']
+        model = Doctor
+        fields = ['name', 'qualification', 'speciality', 'profile_picture', 'bio', 'address', 'contact']
+
+
+class PatientProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ['name', 'profile_picture', 'bio', 'address', 'contact']
+
 
 
 
