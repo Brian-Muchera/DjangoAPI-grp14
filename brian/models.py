@@ -5,10 +5,12 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
+from django.conf import settings
+from group14.models import User
 
 # Create your models here.
 class Profile(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE, default='brian')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=True) 
     profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
@@ -20,6 +22,7 @@ class Profile(models.Model):
         form.instance.created_by = self.request.user
         return super(Profile, self).form_valid(form)
         form.instance.user = Profile.objects.get(user=self.request.user)
+   #     form.instance.user = Profile.objects.get(user=self.request.user)
 
 
     def __str__(self):
@@ -29,6 +32,9 @@ class Profile(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
+       # if created:
+       # profile = Profile(user=instance)
+        profile.save()
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):

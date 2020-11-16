@@ -1,5 +1,8 @@
 from django.conf import settings
 import datetime
+from django.contrib.auth.models import User
+from group14.models import User
+from brian.models import Profile
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin, User, UserManager,Permission)

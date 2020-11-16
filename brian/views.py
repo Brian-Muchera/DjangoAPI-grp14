@@ -4,12 +4,17 @@ from .models import Profile
 from .serializers import ProfileSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    
+   # def post(self,request):
+    #    return self.create(request)
 
     def delete(self, request, pk=None):
         pk = self.kwargs.get('pk')
