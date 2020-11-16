@@ -9,7 +9,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('appointments/', views.AppointmentsList.as_view(),name='appointments'),
-    url('^api/appointments/$', views.AppointmentList.as_view(),name='appointments'),
-    url(r'^appointments/(?P<pk>[0-9]+)/',AppointmentsList.as_view())
+    path('appointments/<pk>/',AppointmentsList.as_view())
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

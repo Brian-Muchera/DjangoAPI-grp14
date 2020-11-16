@@ -15,7 +15,7 @@ class PatientRegistrationSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Patient
-        fields = ['first_name', 'last_name', 'email', 'phone', 'password', 'age', 'city','address', 'date_of_birth']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'password', 'age','address', 'date_of_birth']
  
     def create(self, validated_data):
         return Patient.objects.create_patient(**validated_data)

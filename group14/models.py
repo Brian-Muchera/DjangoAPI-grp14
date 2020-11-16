@@ -21,12 +21,12 @@ class DoctorManager(BaseUserManager):
         doctor.save()
         return doctor
 class PatientManager(BaseUserManager):
-    def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,address,city, password=None):
+    def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,address, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
         patient = Patient(first_name=first_name, last_name=last_name,
                             email=self.normalize_email(email),
-                            date_of_birth=date_of_birth,age=age,address=address,phone=phone,city=city)
+                            date_of_birth=date_of_birth,age=age,address=address,phone=phone)
         patient.set_password(password)
         patient.save()
         return patient
@@ -87,13 +87,11 @@ class Doctor(User, PermissionsMixin, models.Model):
 
 
 class Patient(User, PermissionsMixin, models.Model):
-    name = models.CharField(unique=True,max_length=50, default='SOME STRING')
     date_of_birth=models.DateField(db_index=True)
     age=models.CharField(db_index=True, max_length=10)
     phone=models.CharField(db_index=True, max_length=10)
     profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
-    contact = models.EmailField(max_length=100, blank=True)
     address=models.TextField(db_index=True, max_length=100)
 
 
