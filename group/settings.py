@@ -14,7 +14,8 @@ from pathlib import Path
 import os   
 import cloudinary
 import cloudinary.uploader
-import cloudinary.apiimport dj_database_url
+import cloudinary.api
+import dj_database_url
 import django_heroku
 from datetime import timedelta
 
