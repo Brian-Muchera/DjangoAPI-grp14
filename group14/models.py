@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
     def __str__(self):
         return self.email
 class Doctor(User, PermissionsMixin, models.Model):
-    name = models.CharField(unique=True,max_length=50, default='SOME STRING')
+    
     qualification = models.CharField(db_index=True, max_length=255)
     speciality=models.CharField(db_index=True, max_length=255)
     profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
