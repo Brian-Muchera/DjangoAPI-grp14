@@ -19,7 +19,11 @@ class PatientRegistration(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
- 
+    
+    def get(self, request, format=None):
+        patients = Patient.objects.all()
+        serializer = PatientRegistrationSerializer(patients, many=True)
+        return Response(serializer.data)
 class DoctorRegistration(APIView):
     permission_classes = (AllowAny,)
     serializer_class = DoctorRegistrationSerializer
@@ -29,3 +33,8 @@ class DoctorRegistration(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self, request, format=None):
+        doctors = Doctor.objects.all()
+        serializer = DoctorRegistrationSerializer(doctors, many=True)
+        return Response(serializer.data)

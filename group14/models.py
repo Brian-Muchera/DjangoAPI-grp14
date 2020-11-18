@@ -85,7 +85,10 @@ class Doctor(User, PermissionsMixin, models.Model):
     def __str__(self):
         return self.first_name
 
-
+    @classmethod
+    def get_doctors(cls):
+        doctors = cls.objects.all()
+        return doctors
 class Patient(User, PermissionsMixin, models.Model):
     date_of_birth=models.DateField(db_index=True)
     age=models.CharField(db_index=True, max_length=10)
