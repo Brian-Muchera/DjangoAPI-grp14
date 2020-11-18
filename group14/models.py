@@ -7,9 +7,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin, User, UserManager,Permission)
 from django.db import models
-import sys
-sys.setrecursionlimit(1500)
+
 # Create your models here.
+
+
 class DoctorManager(BaseUserManager):
     def create_doctor(self, first_name, last_name, email, qualification, speciality, password=None):
         if email is None:
@@ -19,17 +20,22 @@ class DoctorManager(BaseUserManager):
                           qualification=qualification, speciality=speciality)
         doctor.set_password(password)
         doctor.save()
+        is_doctor = True
         return doctor
+
+
 class PatientManager(BaseUserManager):
     def create_patient(self, first_name, last_name, email, date_of_birth,age,phone,address, password=None):
         if email is None:
             raise TypeError('Users must have an email address.')
         patient = Patient(first_name=first_name, last_name=last_name,
                             email=self.normalize_email(email),
-                            date_of_birth=date_of_birth,age=age,address=address,phone=phone)
+                            date_of_birth=date_of_birth,age=age,address=address,phone=phone, is_patient=True)
         patient.set_password(password)
         patient.save()
         return patient
+
+
 class CustomUserManager(BaseUserManager):
     def get_by_natural_key(self, email):
         return self.get(email=email)
@@ -49,12 +55,16 @@ class CustomUserManager(BaseUserManager):
            user.is_staff = True
            user.is_superuser = True
            user.save(using=self._db)
+
+
 class User(AbstractBaseUser, PermissionsMixin, models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(db_index=True, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    is_doctor = models.BooleanField(default=False)
+    is_patient = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     USERNAME_FIELD = 'email'
@@ -69,6 +79,8 @@ class User(AbstractBaseUser, PermissionsMixin, models.Model):
         return (self.first_name, self.last_name)
     def __str__(self):
         return self.email
+
+
 class Doctor(User, PermissionsMixin, models.Model):
     
     qualification = models.CharField(db_index=True, max_length=255)
@@ -85,6 +97,11 @@ class Doctor(User, PermissionsMixin, models.Model):
     def __str__(self):
         return self.first_name
 
+    @classmethod
+    def get_doctors(cls):
+        doctors = cls.objects.all()
+        return doctors
+
 
 class Patient(User, PermissionsMixin, models.Model):
     date_of_birth=models.DateField(db_index=True)
@@ -100,6 +117,8 @@ class Patient(User, PermissionsMixin, models.Model):
     objects = PatientManager()
     def __str__(self):
         return self.first_name
+
+
 class CustomUserManager(BaseUserManager):
     def get_by_natural_key(self, email):
         return self.get(email=email)
