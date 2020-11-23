@@ -27,3 +27,6 @@ urlpatterns = [
     path('',include('brian.urls')),
     path('api/',include('group14.urls')),
 ]
+admin.site.site_header = "Hospital Admin"
+admin.site.index_title = "Hospital Administration Dashboard"
+admin.site.site_title = "Quality Healthcare"
