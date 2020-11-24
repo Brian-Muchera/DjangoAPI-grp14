@@ -24,7 +24,6 @@ from appointments.views import AppointmentsList
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
-    path('verification/', include('verify_email.urls')),
     path('',include('appointments.urls')),
     path('',include('brian.urls')),
     path('api/',include('group14.urls')),
