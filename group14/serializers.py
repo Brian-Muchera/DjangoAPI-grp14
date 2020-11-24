@@ -16,7 +16,7 @@ class PatientRegistrationSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Patient
-        fields = ['first_name', 'last_name', 'email', 'phone', 'password', 'age','address', 'date_of_birth']
+        fields = ['id','first_name', 'last_name', 'email', 'phone', 'password', 'age','address', 'date_of_birth']
  
     def create(self, validated_data):
         return Patient.objects.create_patient(**validated_data)
@@ -30,7 +30,7 @@ class DoctorRegistrationSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = Doctor
-        fields = ['first_name', 'last_name', 'email', 'password', 'qualification','speciality']
+        fields = ['id','first_name', 'last_name', 'email', 'password', 'qualification','speciality']
  
     def create(self, validated_data):
         return Doctor.objects.create_doctor(**validated_data)
