@@ -8,4 +8,3 @@ class AppointmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model=Appointments
         fields=('patient','doctor', 'date','time_alloted')
-        depth=1
