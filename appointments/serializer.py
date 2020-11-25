@@ -7,4 +7,4 @@ from rest_framework import routers, serializers, viewsets
 class AppointmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model=Appointments
-        fields=('doctor', 'date','time_alloted')
+        fields=('patient','doctor', 'date','time_alloted')
