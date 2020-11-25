@@ -32,7 +32,14 @@ class AppointmentsList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AppointmentsSerializer(data=request.data)
+        patient_data = {
+            "doctor" : request.data.get("doctor"),
+            "patient": request.user,
+            "date": request.data.get("date"),
+            "time_alloted": request.data.get("time_alloted"),
+        }
+        serializer = AppointmentsSerializer(data=patient_data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
